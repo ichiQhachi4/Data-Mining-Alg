@@ -1,8 +1,8 @@
 from k_means import *
+import pandas as pd
 
-dataset_w_l = np.loadtxt("./Datasets/LabeledPoint.txt")
-dataset = dataset_w_l[:,0:2]
-labels = dataset_w_l[:,2]
-centroids, clusters, assignments = k_means(dataset, 4)
-show_clusters(centroids, clusters)
-show_clusters_with_label(dataset, labels)
+
+dataset = pd.read_csv(".\Datasets\dataset_data_mining_course.csv",header=None)
+dataset = np.array(dataset)
+print(dataset.shape)
+show_clusters_with_label(dataset[:,0:2], dataset[:,2])

@@ -41,6 +41,18 @@ def cos_ang(x, y):
         return -1
     return np.dot(x, y)/(np.linalg.norm(x)*np.linalg.norm(y))
 
+# 找到最近的距离
+def find_cluster_dist(point, centroids):
+    min_dist = np.inf
+    index = 0
+    tmp_dist = 0.0
+    for i in range(centroids.shape[0]):
+        tmp_dist = euc_dist(point, centroids[i])
+        if tmp_dist < min_dist:
+            min_dist = tmp_dist
+            index = i
+    return min_dist
+
 # 计算归属
 def find_cluster_index(point, centroids):
     min_dist = np.inf

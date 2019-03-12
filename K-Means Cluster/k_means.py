@@ -1,6 +1,6 @@
-import numpy as np
+import sys
+
 from general_functions import *
-import matplotlib.pyplot as plt
 
 # random
 def init_centroids(dataset, k):
@@ -13,18 +13,18 @@ def init_centroids(dataset, k):
 
 def k_means(dataset, k):
     centroids = init_centroids(dataset, k)
+    print(centroids)
     
     
     changed = True
     
     previous = np.zeros(len(dataset), int)
     while changed:
+        print(changed)
         clusters = []
         for i in range(k):
             clusters.append([])
         changed = False
-        
-
         for i in range(dataset.shape[0]):
             current_data = dataset[i]
             ci = find_cluster_index(current_data, centroids)
@@ -32,9 +32,9 @@ def k_means(dataset, k):
                 changed = True
                 previous[i] = ci
             clusters[ci].append(current_data)
-        
-        for i in range(k):
-            centroids = np.array(list(map(cal_centroid, clusters)))
+
+        centroids = np.array(list(map(cal_centroid, clusters)))
+        print(centroids)
     
     return centroids, clusters, previous
 
@@ -50,8 +50,3 @@ def show_clusters(centroids, clusters):
         plt.plot(centroids[i, 0], centroids[i, 1], mark[i], markersize = 12)
     plt.show()
 
-def show_clusters_with_label(dataset, labels):
-    mark = ['or', 'ob', 'og', 'ok', '^r', '+r', 'sr', 'dr', '<r', 'pr']
-    for i in range(dataset.shape[0]):
-        plt.plot(dataset[i,0], dataset[i,1],mark[int(labels[i])])
-    plt.show()
