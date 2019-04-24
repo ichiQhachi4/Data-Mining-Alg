@@ -26,7 +26,7 @@ class HMM:
             tmp = 0
             for i in range(self.N):
                 tmp += alpha[t-1][i] * self.A[i][j]
-            alpha_t.append(tmp * self.B[j][int(observation_seq[t])])
+            alpha_t.append(tmp * self.B[int(observation_seq[t])][j])
         alpha.append(alpha_t)
         self.forward_var(alpha, observation_seq, t + 1)
 
@@ -34,7 +34,7 @@ class HMM:
         alpha = []
         alpha_0 = []
         for i in range(self.N):
-            alpha_0.append(self.B[i][int(observation_seq[0])] * self.pi[i])
+            alpha_0.append(self.B[int(observation_seq[0])][i] * self.pi[i])
         alpha.append(alpha_0)
         t = 1
         self.forward_var(alpha, observation_seq, t)
